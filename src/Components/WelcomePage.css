@@ -1,0 +1,43 @@
+/* Custom animation for moving text from right to left */
+@keyframes marquee {
+  0% {
+    transform: translateX(100%); /* Start from the right */
+  }
+  100% {
+    transform: translateX(-100%); /* End at the left */
+  }
+}
+
+.marquee-animation {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 40s linear infinite; /* Slowed down to 30 seconds */
+}
+/* Define media queries for responsiveness */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column; /* Stack elements vertically */
+  }
+
+  .image {
+    width: 100%; /* Make image take full width */
+  }
+
+  .text {
+    font-size: 16px; /* Adjust font size */
+  }
+}
+
+@media (min-width: 769px) {
+  .container {
+    flex-direction: row; /* Display elements side by side */
+  }
+
+  .image {
+    width: 50%;
+  }
+
+  .text {
+    font-size: 18px;
+  }
+}
