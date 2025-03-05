@@ -13,8 +13,7 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const Home4 = () => {
   const initialValues = {
-    royaltyReceived: [{ amount: "", date: null }],
-    premiaReceived: [{ amount: "", date: null }],
+    technologyRefNo: "",
     LicenseName: "",
     DateOfAgreementSigning: null,
     TypeofLicense: "",
@@ -23,6 +22,8 @@ const Home4 = () => {
     DateOfLicense: null,
     LicenseValidUpto: null, // <-- Set this to null or a valid date
     PaymentTerms: "",
+    royaltyReceived: [{ amount: "", date: null }],
+    premiaReceived: [{ amount: "", date: null }],
   };
 
   const [royalties, setRoyalties] = useState([{ amount: "", date: null }]);
@@ -129,6 +130,28 @@ const Home4 = () => {
             {({ setFieldValue, values }) => (
               <Form>
                 {/* License Name */}
+                <div className="form-group mb-4">
+                  <label
+                    className="font-bold flex justify-between"
+                    htmlFor="technologyRefNo"
+                  >
+                    Technology /Knowhow Ref No:
+                    <span className="Hint block text-xs text-red-500 inline text-end">
+                      *Mandatory Field*
+                    </span>
+                  </label>
+                  <Field
+                    type="text"
+                    name="technologyRefNo"
+                    className="w-full p-2 text-lg outline-0.1 rounded-md"
+                    placeholder="Enter New Information"
+                  />
+                  <ErrorMessage
+                    name="technologyRefNo"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
                 <div className="form-group mb-4">
                   <label className="font-bold" htmlFor="LicenseName">
                     License Name.
