@@ -61,7 +61,7 @@ const Home3 = () => {
   }, []);
 
   const handleSubmit = (values) => {
-    const url = "http://localhost:8081/createData"; // Replace with your API endpoint
+    const url = "http://localhost:8080/apf/tdmp/saveSectionTwo"; // Replace with your API endpoint
     const headers = {
       "Content-Type": "application/json",
     };

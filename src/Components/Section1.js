@@ -854,7 +854,8 @@ const Home = () => {
 
   const handleSubmit = (values) => {
     console.log("handle submit is calling******************", values);
-    const url = "http://localhost:8081/createData2"; // Replace with your API endpoint
+    const url = "http://localhost:8080/apf/tdmp/saveSectionOne"; 
+    
 
     // Create a new FormData object
     const formData = new FormData();
@@ -881,7 +882,7 @@ const Home = () => {
     }
 
     const config = {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "application/json" },
     };
 
     axios
