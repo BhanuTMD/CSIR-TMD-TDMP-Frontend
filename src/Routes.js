@@ -13,6 +13,8 @@ import WelcomePage from "./Components/WelcomePage";
 import OTPVerify from "./Components/auth/OtpVerify";
 import OTPLoginVerify from "./Components/auth/OtpLoginVerify";
 import Search from "./Components/Search";
+import JsonDisplay from "./Components/JsonDisplay";
+import Search from "./Components/Search";
 import SearchTable from "./Components/SearchTable";
 
 const AppRoutes = () => {
@@ -30,9 +32,10 @@ const AppRoutes = () => {
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="otpVerify" element={<OTPVerify />} />
         <Route path="otpLoginVerify" element={<OTPLoginVerify />} />
-        <Route path="login" element={<Login />} />
-        <Route path="search" element={<Search />} />
-        <Route path="searchTable" element={<SearchTable />} />
+        <Route path="Login" element={<Login />} />
+        <Route path="Search" element={<Search />} />
+        <Route path="JsonDisplay" element={<JsonDisplay />} />
+        <Route path="TechSearch" element={<TechSearch />} />
       </Route>
     </Routes>
   );

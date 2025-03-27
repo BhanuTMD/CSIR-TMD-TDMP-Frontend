@@ -274,26 +274,19 @@ const Section2 = () => {
                   />
                 </div>
 
-                <div className="form-group mb-4 flex justify-center space-x-4">
-                  <button
+                <div className="form-group mb-4 flex justify-center">
+                <button
                     type="button"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    onClick={() => navigate("/section1")}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md mr-4"
+                    onClick={() => window.location.href = '/section1'}
                   >
-                    Previous
+                    Prev
                   </button>
                   <button
                     type="submit"
                     className="px-4 py-2 bg-blue-500 text-white rounded-md"
                   >
                     Save
-                  </button>
-                  <button
-                    type="button"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    onClick={() => navigate("/section3")}
-                  >
-                    Next
                   </button>
                 </div>
               </Form>

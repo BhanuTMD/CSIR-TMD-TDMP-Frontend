@@ -832,6 +832,9 @@ const Section1 = () => {
     laboratoryDetail: "",
   };
 
+  // const history = useHistory();
+
+
   const validationSchema = Yup.object({
     // technologyRefNo: Yup.string().required("Required"),
     // fileNo: Yup.string().required("Required"),
