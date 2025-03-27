@@ -1,4 +1,5 @@
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import FooterBar from "./common/footer";
 import Header from "./common/header";
 import NavBar from "./common/navBar";
@@ -9,11 +10,11 @@ import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 
-const Home5 = () => {
+const Section4 = () => {
   const [countries, setCountries] = useState([]);
 
   const initialValues = {
-    technologyRefNo:"",
+    technologyRefNo: "",
     clientName: "",
     clientAddress: "",
     city: "",
@@ -21,6 +22,7 @@ const Home5 = () => {
     NameAndAddress: "",
     DeploymentDetails: "",
   };
+  const navigate = useNavigate();
 
   const validationSchema = Yup.object({
     // Add validation rules as needed
@@ -214,7 +216,14 @@ const Home5 = () => {
                 />
               </div>
 
-              <div className="form-group mb-4 flex justify-center">
+              <div className="form-group mb-4 flex justify-center space-x-4">
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                  onClick={() => navigate("/section1")}
+                >
+                  Previous
+                </button>
                 <button
                   type="submit"
                   className="px-4 py-2 bg-blue-500 text-white rounded-md"
@@ -231,4 +240,4 @@ const Home5 = () => {
   );
 };
 
-export default Home5;
+export default Section4;

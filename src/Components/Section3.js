@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FooterBar from "./common/footer";
 import Header from "./common/header";
@@ -11,7 +12,7 @@ import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Home4 = () => {
+const Section3 = () => {
   const initialValues = {
     technologyRefNo: "",
     LicenseName: "",
@@ -25,7 +26,7 @@ const Home4 = () => {
     royaltyReceived: [{ amount: "", date: null }],
     premiaReceived: [{ amount: "", date: null }],
   };
-
+const navigate =useNavigate();
   const [royalties, setRoyalties] = useState([{ amount: "", date: null }]);
   const [premias, setPremias] = useState([{ amount: "", date: null }]);
   const [royaltySubtotal, setRoyaltySubtotal] = useState(0);
@@ -521,13 +522,28 @@ const Home4 = () => {
                   />
                 </div>
 
-                <div className="text-center mb-8">
+                <div className="form-group mb-4 flex justify-center space-x-4">
+                <button
+                    type="button"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    onClick={() => navigate("/section2")} 
+                  >
+                    Previous
+                  </button>
                   <button
                     type="submit"
-                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
                   >
                     Save
+                  </button> 
+                  <button
+                    type="button"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    onClick={() => navigate("/section4")} 
+                  >
+                    Next
                   </button>
+                  
                 </div>
               </Form>
             )}
@@ -539,4 +555,4 @@ const Home4 = () => {
   );
 };
 
-export default Home4;
+export default Section3;

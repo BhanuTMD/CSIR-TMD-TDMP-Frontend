@@ -2,13 +2,12 @@ import axios from "axios";
 import FooterBar from "./common/footer";
 import Header from "./common/header";
 import NavBar from "./common/navBar";
-// import MyForm from "./common/button";
 import Section from "./common/section";
-// import Sidebar from "./common/sidebar";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import CustomSelect from "./utils/CustomSelect";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const industrialSector = [
   {
@@ -810,7 +809,7 @@ const potentialStakeholders = [
   },
 ];
 
-const Home = () => {
+const Section1 = () => {
   const initialValues = {
     technologyRefNo: "",
     keywordTechnology: "",
@@ -851,6 +850,7 @@ const Home = () => {
     // environmentalStatutory: Yup.string().required("Required"),
     // laboratoryDetail: Yup.string().required("Required"),
   });
+  const navigate = useNavigate();
 
   const handleSubmit = (values) => {
     console.log("handle submit is calling******************", values);
@@ -1305,14 +1305,22 @@ const Home = () => {
                   />
                 </div>
 
-                <div className="form-group mb-4 flex justify-center">
+                <div className="form-group mb-4 flex justify-center space-x-4">
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md "
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
                   >
                     Save
                   </button>
+                  <button
+                    type="button"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    onClick={() => navigate("/section3")} 
+                  >
+                    Next
+                  </button>
                 </div>
+
                 {/* <MyForm/> */}
               </Form>
             )}
@@ -1324,4 +1332,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Section1;
