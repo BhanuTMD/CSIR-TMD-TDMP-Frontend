@@ -13,8 +13,9 @@ import jsPDF from "jspdf"; // Import jsPDF
 
 const Home3 = () => {
   const initialValues = {
+    technologyRefNo: "",
     iprType: "",
-    RegistrationNo: "",
+    registrationNo: "",
     Status: "",
     StatusDate: null,
     country: "",
@@ -60,7 +61,7 @@ const Home3 = () => {
   }, []);
 
   const handleSubmit = (values) => {
-    const url = "http://localhost:8081/createData"; // Replace with your API endpoint
+    const url = "http://localhost:8080/apf/tdmp/saveSectionTwo"; // Replace with your API endpoint
     const headers = {
       "Content-Type": "application/json",
     };
@@ -129,6 +130,28 @@ const Home3 = () => {
           >
             {({ setFieldValue }) => (
               <Form>
+                <div className="form-group mb-4">
+                  <label
+                    className="font-bold flex justify-between"
+                    htmlFor="technologyRefNo"
+                  >
+                    Technology /Knowhow Ref No:
+                    <span className="Hint block text-xs text-red-500 inline text-end">
+                      *Mandatory Field*
+                    </span>
+                  </label>
+                  <Field
+                    type="text"
+                    name="technologyRefNo"
+                    className="w-full p-2 text-lg outline-0.1 rounded-md"
+                    placeholder="Enter New Information"
+                  />
+                  <ErrorMessage
+                    name="technologyRefNo"
+                    component="div"
+                    className="text-red-500"
+                  />
+                </div>
                 <div className="form-group mb-4">
                   <label
                     className="font-bold flex justify-between"

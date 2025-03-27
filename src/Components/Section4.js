@@ -13,9 +13,10 @@ const Home5 = () => {
   const [countries, setCountries] = useState([]);
 
   const initialValues = {
-    NameOfClient: "",
-    AddressOfClient: "",
-    City: "",
+    technologyRefNo:"",
+    clientName: "",
+    clientAddress: "",
+    city: "",
     country: "",
     NameAndAddress: "",
     DeploymentDetails: "",
@@ -47,7 +48,7 @@ const Home5 = () => {
 
   const handleSubmit = (values) => {
     console.log("Form submitted with values:", values);
-    const url = "http://localhost:8081/createData"; // Replace with your API endpoint
+    const url = "http://localhost:8080/apf/tdmp/saveSectionFour"; // Replace with your API endpoint
     const headers = {
       "Content-Type": "application/json",
     };
@@ -89,7 +90,7 @@ const Home5 = () => {
             <Form>
               {/* Name of Client */}
               <div className="form-group mb-4">
-                <label className="font-bold" htmlFor="NameOfClient">
+                <label className="font-bold" htmlFor="clientName">
                   Name of Client: &nbsp;
                   <span className="Hint block text-sm text-red-500 inline">
                     Max. 300 Characters
@@ -97,11 +98,11 @@ const Home5 = () => {
                 </label>
                 <Field
                   type="text"
-                  name="NameOfClient"
+                  name="clientName"
                   className="w-full p-2 text-lg outline-0.1 rounded-md"
                 />
                 <ErrorMessage
-                  name="NameOfClient"
+                  name="clientName"
                   component="div"
                   className="text-red-500"
                 />
@@ -130,7 +131,7 @@ const Home5 = () => {
 
               {/* City */}
               <div className="form-group mb-4">
-                <label className="font-bold" htmlFor="City">
+                <label className="font-bold" htmlFor="city">
                   City &nbsp;
                   <span className="Hint block text-sm text-red-500 inline">
                     Max. 300 Characters
@@ -138,11 +139,11 @@ const Home5 = () => {
                 </label>
                 <Field
                   type="text"
-                  name="City"
+                  name="city"
                   className="w-full p-2 text-lg outline-0.1 rounded-md"
                 />
                 <ErrorMessage
-                  name="City"
+                  name="city"
                   component="div"
                   className="text-red-300"
                 />

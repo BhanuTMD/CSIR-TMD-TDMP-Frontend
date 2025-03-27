@@ -813,25 +813,23 @@ const potentialStakeholders = [
 const Home = () => {
   const initialValues = {
     technologyRefNo: "",
-    fileNo: "",
     keywordTechnology: "",
-    nameKnowhow: "",
+    nameTechnology: "",
     industrialSector: "",
     theme: "",
     multiLabInstitute: "",
     leadResearcher: "",
     leadLaboratory: "",
-    // associateInstitute: "",
     technologyLevel: "",
     scaleDevelopment: "",
     yearDevelopment: "",
-    briefKnowhow: "",
+    briefTech: "",
     competitivePosition: "",
-    technoPeriod: "",
+    technoEconomics: "",
     potentialStakeholders: "",
     environmentalStatutory: "",
     marketPotential: "",
-    highPicture: "",
+    picture: "",
     laboratoryDetail: "",
   };
 
@@ -856,7 +854,8 @@ const Home = () => {
 
   const handleSubmit = (values) => {
     console.log("handle submit is calling******************", values);
-    const url = "http://localhost:8081/createData2"; // Replace with your API endpoint
+    const url = "http://localhost:8080/apf/tdmp/saveSectionOne"; 
+    
 
     // Create a new FormData object
     const formData = new FormData();
@@ -872,9 +871,9 @@ const Home = () => {
     }
 
     // Special handling for file upload
-    if (values.highPicture) {
-      console.log("Appending highPicture", values.highPicture);
-      formData.append("highPicture", values.highPicture);
+    if (values.picture) {
+      console.log("Appending picture", values.picture);
+      formData.append("picture", values.picture);
     }
 
     // Log FormData content for debugging
@@ -883,7 +882,7 @@ const Home = () => {
     }
 
     const config = {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "application/json" },
     };
 
     axios
@@ -946,24 +945,6 @@ const Home = () => {
                     className="text-red-500"
                   />
                 </div>
-
-                <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="fileNo">
-                    File No.
-                  </label>
-                  <Field
-                    type="text"
-                    name="fileNo"
-                    className="w-full p-2 text-lg outline-0.1 rounded-md"
-                  />
-                  <ErrorMessage
-                    name="fileNo"
-                    component="div"
-                    className="text-red-500"
-                    f
-                  />
-                </div>
-
                 <div className="form-group">
                   <label className="font-bold" htmlFor="keywordTechnology">
                     Keywords for Technology / Knowhow
@@ -982,7 +963,7 @@ const Home = () => {
                 </div>
 
                 <div className="form-group">
-                  <label className="font-bold" htmlFor="nameKnowhow">
+                  <label className="font-bold" htmlFor="nameTechnology">
                     Name of Technology / Knowhow: &nbsp;
                     <span className="Hint block text-sm text-red-500 inline">
                       Max. 500 Characters
@@ -990,13 +971,13 @@ const Home = () => {
                   </label>
                   <Field
                     type="text"
-                    name="nameKnowhow"
+                    name="nameTechnology"
                     as="textarea"
                     rows="3"
                     className="block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                   />
                   <ErrorMessage
-                    name="nameKnowhow"
+                    name="nameTechnology"
                     component="div"
                     className="text-red-500"
                   />
@@ -1157,7 +1138,7 @@ const Home = () => {
                 </div>
 
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="briefKnowhow">
+                  <label className="font-bold" htmlFor="briefTech">
                     Brief details of Technology / Knowhow: &nbsp;
                     <span className="Hint block text-sm text-red-500 inline">
                       Max. 1000 Characters
@@ -1165,14 +1146,14 @@ const Home = () => {
                   </label>
                   <Field
                     type="text"
-                    name="briefKnowhow"
+                    name="briefTech"
                     as="textarea"
                     rows="3"
                     maxLength="1000"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                   />
                   <ErrorMessage
-                    name="briefKnowhow"
+                    name="briefTech"
                     component="div"
                     className="text-red-500"
                   />
@@ -1214,7 +1195,7 @@ const Home = () => {
                   ></Field>
                 </div>
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="technoPeriod">
+                  <label className="font-bold" htmlFor="technoEconomics">
                     Techno-economics (including development & deployment
                     cost,operational cost, payback period etc.) &nbsp;
                     <span className="Hint block text-sm text-red-500 inline">
@@ -1223,14 +1204,14 @@ const Home = () => {
                   </label>
                   <Field
                     type="text"
-                    name="technoPeriod"
+                    name="technoEconomics"
                     as="textarea"
                     rows="3"
                     maxLength="1500"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                   />
                   <ErrorMessage
-                    name="technoPeriod"
+                    name="technoEconomics"
                     component="div"
                     className="text-red-500"
                   />
@@ -1281,23 +1262,23 @@ const Home = () => {
                   />
                 </div>
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="highPicture">
+                  <label className="font-bold" htmlFor="picture">
                     Upload High-Resolution Picture (Optional)
                   </label>
                   <input
                     type="file"
-                    name="highPicture"
+                    name="picture"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                     onChange={(e) =>
                       setFieldValue(
-                        "highPicture",
+                        "picture",
                         Array.from(e.currentTarget.files)
                       )
                     }
                     multiple //  This attribute to allow multiple files selection
                   />
                   <ErrorMessage
-                    name="highPicture"
+                    name="picture"
                     component="div"
                     className="text-red-500"
                   />
