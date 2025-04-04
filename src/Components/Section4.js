@@ -1,5 +1,4 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import FooterBar from "./common/footer";
 import Header from "./common/header";
 import NavBar from "./common/navBar";
@@ -10,19 +9,18 @@ import Swal from "sweetalert2";
 import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 
-const Section4 = () => {
+const Home5 = () => {
   const [countries, setCountries] = useState([]);
 
   const initialValues = {
-    technologyRefNo: "",
+    technologyRefNo:"",
     clientName: "",
     clientAddress: "",
     city: "",
     country: "",
-    NameAndAddress: "",
-    DeploymentDetails: "",
+    nodalContactPerson: "",
+    deploymentDetails: "",
   };
-  const navigate = useNavigate();
 
   const validationSchema = Yup.object({
     // Add validation rules as needed
@@ -50,7 +48,7 @@ const Section4 = () => {
 
   const handleSubmit = (values) => {
     console.log("Form submitted with values:", values);
-    const url = "http://localhost:8081/createData"; // Replace with your API endpoint
+    const url = "http://localhost:8080/apf/tdmp/saveSectionFour"; // Replace with your API endpoint
     const headers = {
       "Content-Type": "application/json",
     };
@@ -90,6 +88,28 @@ const Section4 = () => {
         >
           {({ setFieldValue }) => (
             <Form>
+              <div className="form-group mb-4">
+                                <label
+                                  className="font-bold flex justify-between"
+                                  htmlFor="technologyRefNo"
+                                >
+                                  Technology /Knowhow Ref No:
+                                  <span className="Hint block text-xs text-red-500 inline text-end">
+                                    *Mandatory Field*
+                                  </span>
+                                </label>
+                                <Field
+                                  type="text"
+                                  name="technologyRefNo"
+                                  className="w-full p-2 text-lg outline-0.1 rounded-md"
+                                  placeholder="Enter New Information"
+                                />
+                                <ErrorMessage
+                                  name="technologyRefNo"
+                                  component="div"
+                                  className="text-red-500"
+                                />
+                              </div>
               {/* Name of Client */}
               <div className="form-group mb-4">
                 <label className="font-bold" htmlFor="clientName">
@@ -112,7 +132,7 @@ const Section4 = () => {
 
               {/* Address of Client */}
               <div className="form-group mb-4">
-                <label className="font-bold" htmlFor="AddressOfClient">
+                <label className="font-bold" htmlFor="clientAddress">
                   Address of Client: &nbsp;
                   <span className="Hint block text-sm text-red-500 inline">
                     Max. 300 Characters
@@ -121,11 +141,11 @@ const Section4 = () => {
                 <Field
                   type="text"
                   as="textarea"
-                  name="AddressOfClient"
+                  name="clientAddress"
                   className="w-full p-2 text-lg outline-0.1 rounded-md"
                 />
                 <ErrorMessage
-                  name="AddressOfClient"
+                  name="clientAddress"
                   component="div"
                   className="text-red-500"
                 />
@@ -177,7 +197,7 @@ const Section4 = () => {
 
               {/* Other fields like Name and Address of Nodal Contact Person, Deployment Details */}
               <div className="form-group mb-4">
-                <label className="font-bold" htmlFor="NameAndAddress">
+                <label className="font-bold" htmlFor="nodalContactPerson">
                   Name and Address of Nodal Contact Person: &nbsp;
                   <span className="Hint block text-sm text-red-500 inline">
                     Max. 300 Characters
@@ -186,18 +206,18 @@ const Section4 = () => {
                 <Field
                   type="text"
                   as="textarea"
-                  name="NameAndAddress"
+                  name="nodalContactPerson"
                   className="w-full p-2 text-lg outline-0.1 rounded-md"
                 />
                 <ErrorMessage
-                  name="NameAndAddress"
+                  name="nodalContactPerson"
                   component="div"
                   className="text-red-500"
                 />
               </div>
 
               <div className="form-group mb-4">
-                <label className="font-bold" htmlFor="DeploymentDetails">
+                <label className="font-bold" htmlFor="deploymentDetails">
                   Deployment Details &nbsp;
                   <span className="Hint block text-sm text-red-500 inline">
                     Max. 300 Characters
@@ -206,31 +226,23 @@ const Section4 = () => {
                 <Field
                   type="text"
                   as="textarea"
-                  name="DeploymentDetails"
+                  name="deploymentDetails"
                   className="w-full p-2 text-lg outline-0.1 rounded-md"
                 />
                 <ErrorMessage
-                  name="DeploymentDetails"
+                  name="deploymentDetails"
                   component="div"
                   className="text-red-500"
                 />
               </div>
 
               <div className="form-group mb-4 flex justify-center">
-              <button
-                    type="button"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md mr-4"
-                    onClick={() => window.location.href = '/section3'}
-                  >
-                    Prev
-                  </button>
                 <button
                   type="submit"
                   className="px-4 py-2 bg-blue-500 text-white rounded-md"
                 >
                   Save
                 </button>
-                
               </div>
             </Form>
           )}
@@ -241,4 +253,4 @@ const Section4 = () => {
   );
 };
 
-export default Section4;
+export default Home5;

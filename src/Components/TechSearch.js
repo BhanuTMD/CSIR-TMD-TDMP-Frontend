@@ -503,31 +503,9 @@ const TechSearch = () => {
                   type="submit"
                   className="bg-blue-500 text-white px-4 py-2 rounded-md"
                 >
-<<<<<<< Updated upstream
                   Enter
                 </button>
               </div>
-=======
-                  Search
-                </button>
-              </div>
-
-              <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="sectionSelect">
-                    Select Section
-                  </label>
-                  <Field
-                    name="sectionSelect"
-                    options={sections}
-                    component={CustomSelect}
-                    placeholder="Select a Section..."
-                    onChange={handleSectionChange}
-                  />
-                </div>
-
-
-              
->>>>>>> Stashed changes
             </Form>
           </Formik>
         </div>

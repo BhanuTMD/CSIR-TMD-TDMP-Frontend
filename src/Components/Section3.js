@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import FooterBar from "./common/footer";
 import Header from "./common/header";
@@ -12,25 +11,28 @@ import Swal from "sweetalert2";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const Section3 = () => {
+const Home4 = () => {
   const initialValues = {
     technologyRefNo: "",
-    LicenseName: "",
-    DateOfAgreementSigning: null,
-    TypeofLicense: "",
-    StaRegionalGeography: "",
-    DetailsOfExclusivity: "",
-    DateOfLicense: null,
-    LicenseValidUpto: null, // <-- Set this to null or a valid date
-    PaymentTerms: "",
-    royaltyReceived: [{ amount: "", date: null }],
-    premiaReceived: [{ amount: "", date: null }],
+    licenseName: "",
+    dateOfAgreementSigning: null,
+    typeOfLicense: "",
+    staRegionalGeography: "",
+    detailsOfExclusivity: "",
+    dateOfLicense: null,
+    licenseValidUntil: null,
+    paymentTerms: "",
+    royalty: [{ amount: "", date: null }],
+    premia: [{ amount: "", date: null }],
+    subTotalRoyalty: 0, // Initialize to 0
+    subTotalPremia: 0, // Initialize to 0
+    grandTotal: 0, // Initialize to 0
   };
-const navigate =useNavigate();
+
   const [royalties, setRoyalties] = useState([{ amount: "", date: null }]);
   const [premias, setPremias] = useState([{ amount: "", date: null }]);
-  const [royaltySubtotal, setRoyaltySubtotal] = useState(0);
-  const [premiaSubtotal, setPremiaSubtotal] = useState(0);
+  const [subTotalRoyalty, setSubTotalRoyalty] = useState(0);
+  const [subTotalPremia, setSubTotalPremia] = useState(0);
   const [grandTotal, setGrandTotal] = useState(0);
 
   // Date limits
@@ -38,46 +40,76 @@ const navigate =useNavigate();
   const maxDate = new Date("3000-08-12");
 
   useEffect(() => {
-    const totalRoyalties = royalties.reduce(
+    const subTotalRoyalty = royalties.reduce(
       (acc, item) => acc + parseFloat(item.amount || 0),
       0
     );
-    const totalPremias = premias.reduce(
+    const subTotalPremia = premias.reduce(
       (acc, item) => acc + parseFloat(item.amount || 0),
       0
     );
 
     // Update Subtotals
-    setRoyaltySubtotal(totalRoyalties);
-    setPremiaSubtotal(totalPremias);
+    setSubTotalRoyalty(subTotalRoyalty);
+    setSubTotalPremia(subTotalPremia);
 
     // Calculate Grand Total
-    setGrandTotal(totalRoyalties + totalPremias);
+    setGrandTotal(subTotalRoyalty + subTotalPremia);
   }, [royalties, premias]);
 
   const validationSchema = Yup.object({
-    LicenseName: Yup.string()
+    licenseName: Yup.string()
       .max(300, "Max. 300 characters")
       .required("Required"),
-    DateOfAgreementSigning: Yup.date().required("Required"),
-    TypeofLicense: Yup.string().required("Required"),
-    StaRegionalGeography: Yup.string().required("Required"),
-    DetailsOfExclusivity: Yup.string().max(300, "Max. 300 characters"),
-    DateOfLicense: Yup.date().required("Required"),
-    LicenseValidUpto: Yup.date().required("Required"),
-    PaymentTerms: Yup.string().max(300, "Max. 300 characters"),
+    dateOfAgreementSigning: Yup.date().required("Required"),
+    typeOfLicense: Yup.string().required("Required"),
+    staRegionalGeography: Yup.string().required("Required"),
+    detailsOfExclusivity: Yup.string().max(300, "Max. 300 characters"),
+    dateOfLicense: Yup.date().required("Required"),
+    licenseValidUntil: Yup.date().required("Required"),
+    paymentTerms: Yup.string().max(300, "Max. 300 characters"),
+    // royalty: Yup.array().of(
+    //   Yup.object().shape({
+    //     amount: Yup.number(),
+    //     date: Yup.date(),
+    //   })
+    // ),
+    // premia: Yup.array().of(
+    //   Yup.object().shape({
+    //     amount: Yup.number(),
+    //     date: Yup.date(),
+    //   })
+    // ),
+
+
+
+        
     // Add validation for royalties and premias if necessary
   });
 
   const handleSubmit = (values) => {
-    console.log("Form submitted:", values);
-    const url = "http://localhost:8081/createData"; // Replace with your API endpoint
+    const payload = {
+      ...values,
+      royalty: royalties.map(r => ({
+        amount: r.amount || "0",
+        date: r.date ? r.date.toISOString().split('T')[0] : null // Format date to 'YYYY-MM-DD'
+      })),
+      premia: premias.map(p => ({
+        amount: p.amount || "0",
+        date: p.date ? p.date.toISOString().split('T')[0] : null // Format date to 'YYYY-MM-DD'
+      })),
+      subTotalRoyalty, // Include subtotal royalty
+      subTotalPremia, // Include subtotal premia
+      grandTotal // Include grand total
+    };
+  
+    console.log("Form submitted:", payload);
+    const url = "http://localhost:8080/apf/tdmp/saveSectionThree";
     const headers = {
       "Content-Type": "application/json",
     };
-
-    axios
-      .post(url, values, { headers })
+  
+    axios.post(url, payload, { headers })
       .then(() => {
         Swal.fire({
           title: "Success!",
@@ -154,7 +186,7 @@ const navigate =useNavigate();
                   />
                 </div>
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="LicenseName">
+                  <label className="font-bold" htmlFor="licenseName">
                     License Name.
                     <span className="Hint block text-sm text-red-500 inline">
                       Max. 300 Characters
@@ -163,11 +195,11 @@ const navigate =useNavigate();
                   <Field
                     maxLength="300"
                     type="text"
-                    name="LicenseName"
+                    name="licenseName"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                   />
                   <ErrorMessage
-                    name="LicenseName"
+                    name="licenseName"
                     component="div"
                     className="text-red-500"
                   />
@@ -175,13 +207,13 @@ const navigate =useNavigate();
 
                 {/* Date of Agreement Signing */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="DateOfAgreementSigning">
+                  <label className="font-bold" htmlFor="dateOfAgreementSigning">
                     Date of Agreement Signing &nbsp;
                   </label>
                   <DatePicker
-                    selected={values.DateOfAgreementSigning}
+                    selected={values.dateOfAgreementSigning}
                     onChange={(date) =>
-                      setFieldValue("DateOfAgreementSigning", date)
+                      setFieldValue("dateOfAgreementSigning", date)
                     }
                     dateFormat="dd/MM/yyyy"
                     minDate={minDate}
@@ -190,7 +222,7 @@ const navigate =useNavigate();
                     placeholderText="Select a date"
                   />
                   <ErrorMessage
-                    name="DateOfAgreementSigning"
+                    name="dateOfAgreementSigning"
                     component="div"
                     className="text-red-500"
                   />
@@ -198,11 +230,11 @@ const navigate =useNavigate();
 
                 {/* Type of License */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="TypeofLicense">
+                  <label className="font-bold" htmlFor="typeOfLicense">
                     Type of License
                   </label>
                   <Field
-                    name="TypeofLicense"
+                    name="typeOfLicense"
                     as="select"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                   >
@@ -211,7 +243,7 @@ const navigate =useNavigate();
                     <option value="Non-Exclusive">Non-Exclusive</option>
                   </Field>
                   <ErrorMessage
-                    name="TypeofLicense"
+                    name="typeOfLicense"
                     component="div"
                     className="text-red-500"
                   />
@@ -219,11 +251,11 @@ const navigate =useNavigate();
 
                 {/* Regional Geography */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="StaRegionalGeography">
+                  <label className="font-bold" htmlFor="staRegionalGeography">
                     Regional Geography
                   </label>
                   <Field
-                    name="StaRegionalGeography"
+                    name="staRegionalGeography"
                     as="select"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                   >
@@ -235,7 +267,7 @@ const navigate =useNavigate();
                     <option value="South">South</option>
                   </Field>
                   <ErrorMessage
-                    name="StaRegionalGeography"
+                    name="staRegionalGeography"
                     component="div"
                     className="text-red-500"
                   />
@@ -243,7 +275,7 @@ const navigate =useNavigate();
 
                 {/* Details of Exclusivity */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="DetailsOfExclusivity">
+                  <label className="font-bold" htmlFor="detailsOfExclusivity">
                     Details of Exclusivity: &nbsp;
                     <span className="Hint block text-sm text-red-500 inline">
                       Max. 300 Characters
@@ -251,13 +283,13 @@ const navigate =useNavigate();
                   </label>
                   <Field
                     type="text"
-                    name="DetailsOfExclusivity"
+                    name="detailsOfExclusivity"
                     as="textarea"
                     maxLength="300"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                   />
                   <ErrorMessage
-                    name="DetailsOfExclusivity"
+                    name="detailsOfExclusivity"
                     component="div"
                     className="text-red-500"
                   />
@@ -265,12 +297,12 @@ const navigate =useNavigate();
 
                 {/* Date of License */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="DateOfLicense">
+                  <label className="font-bold" htmlFor="dateOfLicense">
                     Date of License &nbsp;
                   </label>
                   <DatePicker
-                    selected={values.DateOfLicense}
-                    onChange={(date) => setFieldValue("DateOfLicense", date)}
+                    selected={values.dateOfLicense}
+                    onChange={(date) => setFieldValue("dateOfLicense", date)}
                     dateFormat="dd/MM/yyyy"
                     minDate={minDate}
                     maxDate={maxDate}
@@ -278,7 +310,7 @@ const navigate =useNavigate();
                     placeholderText="Select a date"
                   />
                   <ErrorMessage
-                    name="DateOfLicense"
+                    name="dateOfLicense"
                     component="div"
                     className="text-red-500"
                   />
@@ -286,12 +318,12 @@ const navigate =useNavigate();
 
                 {/* License Valid Upto */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="LicenseValidUpto">
+                  <label className="font-bold" htmlFor="licenseValidUntil">
                     License Valid Upto &nbsp;
                   </label>
                   <DatePicker
-                    selected={values.LicenseValidUpto}
-                    onChange={(date) => setFieldValue("LicenseValidUpto", date)}
+                    selected={values.licenseValidUntil}
+                    onChange={(date) => setFieldValue("licenseValidUntil", date)}
                     dateFormat="dd/MM/yyyy"
                     minDate={minDate}
                     maxDate={maxDate}
@@ -299,7 +331,7 @@ const navigate =useNavigate();
                     placeholderText="Select a date"
                   />
                   <ErrorMessage
-                    name="LicenseValidUpto"
+                    name="licenseValidUntil"
                     component="div"
                     className="text-red-500"
                   />
@@ -307,7 +339,7 @@ const navigate =useNavigate();
 
                 {/* Payment Terms */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="PaymentTerms">
+                  <label className="font-bold" htmlFor="paymentTerms">
                     Payment Terms: &nbsp;
                     <span className="Hint block text-sm text-red-500 inline">
                       Max. 300 Characters
@@ -315,13 +347,13 @@ const navigate =useNavigate();
                   </label>
                   <Field
                     type="text"
-                    name="PaymentTerms"
+                    name="paymentTerms"
                     as="textarea"
                     maxLength="300"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                   />
                   <ErrorMessage
-                    name="PaymentTerms"
+                    name="paymentTerms"
                     component="div"
                     className="text-red-500"
                   />
@@ -404,15 +436,15 @@ const navigate =useNavigate();
 
                 {/* Royalty Subtotal */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="RoyaltySubtotal">
+                  <label className="font-bold" htmlFor="subTotalRoyalty">
                     Subtotal Royalty Received (in INR)
                   </label>
                   <Field
                     maxLength="300"
                     type="number"
-                    name="RoyaltySubtotal"
+                    name="subTotalRoyalty"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
-                    value={royaltySubtotal}
+                    value={subTotalRoyalty}
                     readOnly
                   />
                 </div>
@@ -494,15 +526,15 @@ const navigate =useNavigate();
 
                 {/* Premia Subtotal */}
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="PremiaSubtotal">
+                  <label className="font-bold" htmlFor="subTotalPremia">
                     Subtotal Premia Received (in INR)
                   </label>
                   <Field
                     maxLength="300"
                     type="number"
-                    name="PremiaSubtotal"
+                    name="subTotalPremia"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
-                    value={premiaSubtotal}
+                    value={subTotalPremia}
                     readOnly
                   />
                 </div>
@@ -522,26 +554,12 @@ const navigate =useNavigate();
                   />
                 </div>
 
-                <div className="form-group mb-4 flex justify-center space-x-4">
-                <button
-                    type="button"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    onClick={() => navigate("/section2")} 
-                  >
-                    Previous
-                  </button>
+                <div className="text-center mb-8">
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    className="bg-blue-500 text-white px-4 py-2 rounded-md"
                   >
                     Save
-                  </button> 
-                  <button
-                    type="button"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    onClick={() => navigate("/section4")} 
-                  >
-                    Next
                   </button>
                 </div>
               </Form>
@@ -554,4 +572,4 @@ const navigate =useNavigate();
   );
 };
 
-export default Section3;
+export default Home4;

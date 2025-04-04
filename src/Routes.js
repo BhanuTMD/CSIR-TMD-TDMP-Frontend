@@ -12,10 +12,11 @@ import ChangePassword from "./Components/auth/ChangePassword";
 import WelcomePage from "./Components/WelcomePage";
 import OTPVerify from "./Components/auth/OtpVerify";
 import OTPLoginVerify from "./Components/auth/OtpLoginVerify";
-import Search from "./Components/Search";
-import JsonDisplay from "./Components/JsonDisplay";
-import Search from "./Components/Search";
-import SearchTable from "./Components/SearchTable";
+// import Search from "./Components/Search";
+// import JsonDisplay from "./Components/JsonDisplay";
+// import Search from "./Components/Search";
+// import SearchTable from "./Components/SearchTable";
+
 
 const AppRoutes = () => {
   return (
@@ -33,8 +34,8 @@ const AppRoutes = () => {
         <Route path="otpVerify" element={<OTPVerify />} />
         <Route path="otpLoginVerify" element={<OTPLoginVerify />} />
         <Route path="Login" element={<Login />} />
-        <Route path="Search" element={<Search />} />
-        <Route path="JsonDisplay" element={<JsonDisplay />} />
+        {/* <Route path="Search" element={<Search />} />
+        <Route path="JsonDisplay" element={<JsonDisplay />} /> */}
         <Route path="TechSearch" element={<TechSearch />} />
       </Route>
     </Routes>

@@ -2,12 +2,14 @@ import axios from "axios";
 import FooterBar from "./common/footer";
 import Header from "./common/header";
 import NavBar from "./common/navBar";
+// import MyForm from "./common/button";
 import Section from "./common/section";
+// import Sidebar from "./common/sidebar";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import CustomSelect from "./utils/CustomSelect";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+
 
 const industrialSector = [
   {
@@ -139,8 +141,8 @@ const industrialSector = [
     value: "RE",
   },
   {
-    label: "Renewable Energy (RE)",
-    value: "RE",
+    label: "Renewable Energy (R&E)",
+    value: "R&E",
   },
   {
     label: "Roads and Highways (R&H)",
@@ -176,7 +178,7 @@ const industrialSector = [
   },
 ];
 
-const leadResearcher = [
+const associateInstitute = [
   {
     label:
       "CSIR-Advanced Materials and Processes Research Institute (CSIR-AMPRI), Bhopal",
@@ -581,7 +583,9 @@ const leadLaboratory = [
   },
 ];
 
-const potentialStakeholders = [
+const 
+
+stakeHolders = [
   {
     label: "Ministry of Information and Broadcasting (MoIB)",
     value: "MoIB",
@@ -809,15 +813,16 @@ const potentialStakeholders = [
   },
 ];
 
-const Section1 = () => {
+
+const Home = () => {
   const initialValues = {
     technologyRefNo: "",
     keywordTechnology: "",
     nameTechnology: "",
-    industrialSector: "",
-    theme: "",
+    industrialSector: [],
+    theme: [],
     multiLabInstitute: "",
-    leadResearcher: "",
+    associateInstitute: [],
     leadLaboratory: "",
     technologyLevel: "",
     scaleDevelopment: "",
@@ -825,70 +830,70 @@ const Section1 = () => {
     briefTech: "",
     competitivePosition: "",
     technoEconomics: "",
-    potentialStakeholders: "",
+    stakeHolders: [],
     environmentalStatutory: "",
     marketPotential: "",
-    picture: "",
+    picture: null, // Assuming this is a file input
     laboratoryDetail: "",
   };
 
-  // const history = useHistory();
-
-
   const validationSchema = Yup.object({
     // technologyRefNo: Yup.string().required("Required"),
-    // fileNo: Yup.string().required("Required"),
     // keywordTechnology: Yup.string().required("Required"),
-    // nameKnowhow: Yup.string().required("Required"),
-    // industrialSector: Yup.string().required("Required"),
+    // nameTechnology: Yup.string().required("Required"),
+    // industrialSector: Yup.array().required("Required"), // Ensure this is an array
     // leadLaboratory: Yup.string().required("Required"),
-    // // associateInstitute: Yup.string().required("Required"),
     // technologyLevel: Yup.string().required("Required"),
     // scaleDevelopment: Yup.string().required("Required"),
     // yearDevelopment: Yup.string().required("Required"),
-    // briefKnowhow: Yup.string().required("Required"),
+    // briefTech: Yup.string().required("Required"),
     // competitivePosition: Yup.string().required("Required"),
-    // technoPeriod: Yup.string().required("Required"),
+    // technoEconomics: Yup.string().required("Required"),
     // marketPotential: Yup.string().required("Required"),
     // environmentalStatutory: Yup.string().required("Required"),
     // laboratoryDetail: Yup.string().required("Required"),
   });
-  const navigate = useNavigate();
+
+  // const formik = useFormik({
+  //   initialValues,
+  //   validationSchema,
+  //   onSubmit: (values) => {
+  //     handleSubmit(values);
+  //   },
+  // });
 
   const handleSubmit = (values) => {
     console.log("handle submit is calling******************", values);
-    const url = "http://localhost:8081/createData2"; // Replace with your API endpoint
-
-    // Create a new FormData object
-    const formData = new FormData();
-
-    // Append form values to FormData
-    for (const key in values) {
-      if (values.hasOwnProperty(key)) {
-        // Skip appending `undefined` or `null` values
-        if (values[key] !== undefined && values[key] !== null) {
-          formData.append(key, values[key]);
-        }
-      }
-    }
-
-    // Special handling for file upload
-    if (values.picture) {
-      console.log("Appending picture", values.picture);
-      formData.append("picture", values.picture);
-    }
-
-    // Log FormData content for debugging
-    for (let pair of formData.entries()) {
-      console.log(`${pair[0]}: ${pair[1]}`);
-    }
-
+    const url = "http://localhost:8080/apf/tdmp/saveSectionOne"; 
     const config = {
-      headers: { "Content-Type": "multipart/form-data" },
+      headers: { "Content-Type": "application/json" }, // Set to multipart/form-data for FormData if needed
+    };
+
+    // Create the payload based on the values received
+    const payload = {
+      technologyRefNo: values.technologyRefNo,
+      keywordTechnology: values.keywordTechnology,
+      nameTechnology: values.nameTechnology,
+      industrialSector: Array.isArray(values.industrialSector) ? values.industrialSector : [values.industrialSector],
+      theme: Array.isArray(values.theme) ? values.theme : [values.theme],
+      multiLabInstitute: values.multiLabInstitute,
+      associateInstitute: Array.isArray(values.associateInstitute) ? values.associateInstitute : [values.associateInstitute],
+      leadLaboratory: values.leadLaboratory,
+      technologyLevel: values.technologyLevel,
+      scaleDevelopment: values.scaleDevelopment,
+      yearDevelopment: values.yearDevelopment,
+      briefTech: values.briefTech,
+      competitivePosition: values.competitivePosition,
+      technoEconomics: values.technoEconomics,
+      stakeHolders: Array.isArray(values.stakeHolders) ? values.stakeHolders : [values.stakeHolders],
+      environmentalStatutory: values.environmentalStatutory,
+      marketPotential: values.marketPotential,
+      picture: values.picture, // Assuming this is a file input
+      laboratoryDetail: values.laboratoryDetail,
     };
 
     axios
-      .post(url, formData, config)
+      .post(url, payload, config)
       .then((response) => {
         console.log("Response data:", response.data);
         Swal.fire({
@@ -908,7 +913,6 @@ const Section1 = () => {
         });
       });
   };
-
   return (
     <>
       <Header />
@@ -985,19 +989,27 @@ const Section1 = () => {
                   />
                 </div>
 
-                <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="industrialSector">
-                    Industrial Sector
-                  </label>
-                  <Field
-                    name="industrialSector"
-                    options={industrialSector}
-                    component={CustomSelect}
-                    placeholder="Select Industrial Sector..."
-                    isMulti={true}
-                    //className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  ></Field>
-                </div>
+                
+                
+    <div className="form-group mb-4">
+            <label className="font-bold" htmlFor="industrialSector">
+              Industrial Sector
+            </label>
+            <Field
+              name="industrialSector"
+              options={industrialSector}
+              component={CustomSelect}
+              placeholder="Select Industrial Sector..."
+              isMulti={true}
+            />
+            <ErrorMessage
+             name="industrialSector"
+            component="div"
+            className="text-red-500"
+            />
+           
+          </div>
+  
                 <div className="form-group mb-4">
                   <label className="font-bold" htmlFor="leadLaboratory">
                     Lead Laboratory / Institute
@@ -1007,7 +1019,7 @@ const Section1 = () => {
                     options={leadLaboratory}
                     component={CustomSelect}
                     placeholder="Select a Lab..."
-                    isMulti={true}
+                    // isMulti={true}
                     //className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   ></Field>
                 </div>
@@ -1022,7 +1034,13 @@ const Section1 = () => {
                     placeholder="Select a Theme..."
                     isMulti={true}
                     //className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                  ></Field>
+                  >
+                    <ErrorMessage
+                    name="theme"
+                    component="div"
+                    className="text-red-500"
+                  />
+                  </Field>
                 </div>
                 <div className="form-group flex items-center mb-4">
                   <label className="font-bold" htmlFor="multiLabInstitute">
@@ -1064,13 +1082,13 @@ const Section1 = () => {
                 </div>
 
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="leadLaboratory">
+                  <label className="font-bold" htmlFor="associateInstitute">
                     If Yes,Please Specify Labs/Institutes
                   </label>
 
                   <Field
-                    name="leadResearcher"
-                    options={leadResearcher}
+                    name="associateInstitute"
+                    options={associateInstitute}
                     component={CustomSelect}
                     placeholder="Select List Of Multilabs From here..."
                     isMulti={true}
@@ -1184,17 +1202,22 @@ const Section1 = () => {
                   />
                 </div>
                 <div className="form-group mb-4">
-                  <label className="font-bold" htmlFor="potentialStakeholders">
+                  <label className="font-bold" htmlFor="stakeHolders">
                     Potential Stakeholders
                   </label>
                   <Field
-                    name="potentialStakeholders"
-                    options={potentialStakeholders}
+                    name="stakeHolders"
+                    options={stakeHolders}
                     component={CustomSelect}
                     placeholder="Select Ministry List from here..."
                     isMulti={true}
                     //className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   ></Field>
+                  <ErrorMessage
+                    name="stakeHolders"
+                    component="div"
+                    className="text-red-500"
+                  />
                 </div>
                 <div className="form-group mb-4">
                   <label className="font-bold" htmlFor="technoEconomics">
@@ -1273,11 +1296,11 @@ const Section1 = () => {
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                     onChange={(e) =>
                       setFieldValue(
-                        "picture",
-                        Array.from(e.currentTarget.files)
+                        "picture"
+                        // Array.from(e.currentTarget.files)
                       )
                     }
-                    multiple //  This attribute to allow multiple files selection
+                    // multiple //  This attribute to allow multiple files selection
                   />
                   <ErrorMessage
                     name="picture"
@@ -1308,22 +1331,14 @@ const Section1 = () => {
                   />
                 </div>
 
-                <div className="form-group mb-4 flex justify-center space-x-4">
+                <div className="form-group mb-4 flex justify-center">
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md "
                   >
                     Save
                   </button>
-                  <button
-                    type="button"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                    onClick={() => navigate("/section3")} 
-                  >
-                    Next
-                  </button>
                 </div>
-
                 {/* <MyForm/> */}
               </Form>
             )}
@@ -1335,4 +1350,4 @@ const Section1 = () => {
   );
 };
 
-export default Section1;
+export default Home;
