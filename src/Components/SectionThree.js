@@ -70,20 +70,6 @@ const SectionThree = () => {
     dateOfLicense: Yup.date().required("Required"),
     licenseValidUntil: Yup.date().required("Required"),
     paymentTerms: Yup.string().max(300, "Max. 300 characters"),
-    // royalty: Yup.array().of(
-    //   Yup.object().shape({
-    //     amount: Yup.number(),
-    //     date: Yup.date(),
-    //   })
-    // ),
-    // premia: Yup.array().of(
-    //   Yup.object().shape({
-    //     amount: Yup.number(),
-    //     date: Yup.date(),
-    //   })
-    // ),
-
-    // Add validation for royalties and premias if necessary
   });
 
   const handleSubmit = (values) => {
@@ -267,7 +253,7 @@ const SectionThree = () => {
                     <option value="South">South</option>
                   </Field>
                   <ErrorMessage
-                    name="staRegionalGeography"
+                    name="stateRegionalGeography"
                     component="div"
                     className="text-red-500"
                   />

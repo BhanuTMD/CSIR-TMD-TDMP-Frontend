@@ -959,7 +959,7 @@ const SectionTwo = () => {
 
                 <div className="form-group">
                   <label className="font-bold" htmlFor="status">
-                    status
+                    Status
                   </label>
                   <Field
                     name="status"
@@ -983,7 +983,7 @@ const SectionTwo = () => {
 
                 <div className="form-group">
                   <label className="font-bold" htmlFor="statusDate">
-                    status Date: &nbsp;
+                    Status Date: &nbsp;
                   </label>
                   <div className="Home3">
                     <DatePicker

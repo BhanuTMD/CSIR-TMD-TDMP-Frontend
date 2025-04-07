@@ -24,15 +24,15 @@ const AppRoutes = () => {
         <Route index element={<Login />} />
         <Route path="welcomePage" element={<WelcomePage />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="section1" element={<SectionOne />} />
+        <Route path="sectionOne" element={<SectionOne />} />
         <Route path="techSearch" element={<TechSearch />} />
-        <Route path="section2" element={<SectionTwo />} />
-        <Route path="section3" element={<SectionThree />} />
-        <Route path="section4" element={<SectionFour />} />
+        <Route path="sectionTwo" element={<SectionTwo />} />
+        <Route path="sectionThree" element={<SectionThree />} />
+        <Route path="sectionFour" element={<SectionFour />} />
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="otpVerify" element={<OTPVerify />} />
         <Route path="otpLoginVerify" element={<OTPLoginVerify />} />
-        <Route path="Login" element={<Login />} />
+        <Route path="login" element={<Login />} />
         {/* <Route path="Search" element={<Search />} />
         <Route path="JsonDisplay" element={<JsonDisplay />} /> */}
         <Route path="TechSearch" element={<TechSearch />} />
