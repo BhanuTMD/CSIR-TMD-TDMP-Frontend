@@ -3,6 +3,7 @@ import NavBar from "./common/navBar";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import CustomSelect from "./utils/CustomSelect";
 import * as Yup from "yup";
+import React, { useEffect, useState } from 'react';
 
 const industrialSector = [
   {
@@ -392,23 +393,62 @@ const labNo = [
   },
 ];
 
+
 const TechSearch = () => {
   const initialValues = {
     industrialSector: "",
     labNo: "",
     themeNo: "",
     trnNo: "",
+    sectionSelect: ""
   };
 
   const validationSchema = Yup.object({
+    // Uncomment and add validation as needed
     // industrialSector: Yup.string().required("Required"),
     // labNo: Yup.string().required("Required"),
     // themeNo: Yup.string().required("Required"),
     // trnNo: Yup.string().required("Required"),
+    // sectionSelect: Yup.string().required("Required"),
   });
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [selectedSection, setSelectedSection] = useState('');
 
   const handleSubmit = (values) => {
     console.log("Submitted Data:", values);
+    fetchData(values);
+  };
+
+  const fetchData = async (values) => {
+    setLoading(true);
+    try {
+      const response = await fetch('http://localhost:8080/apf/tdmp/search', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          theme: values.themeNo,
+          industrialSector: values.industrialSector,
+          lab: values.labNo,
+          technologyRefNo: values.trnNo,
+          page: 0,
+          size: 10,
+        }),
+      });
+      const result = await response.json();
+      setData(result); // Store the entire response
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSectionChange = (event) => {
+    setSelectedSection(event.target.value);
   };
 
   return (
@@ -434,10 +474,9 @@ const TechSearch = () => {
                     options={industrialSector}
                     component={CustomSelect}
                     placeholder="Select Industrial Sector..."
-                  ></Field>
+                  />
                   <ErrorMessage
                     name="industrialSector"
-                    options={industrialSector}
                     component="div"
                     className="text-red-500"
                   />
@@ -453,7 +492,7 @@ const TechSearch = () => {
                     options={labNo}
                     component={CustomSelect}
                     placeholder="Select List Of Lab From here..."
-                  ></Field>
+                  />
                   <ErrorMessage
                     name="labNo"
                     component="div"
@@ -467,11 +506,11 @@ const TechSearch = () => {
                     THEME NO
                   </label>
                   <Field
-                    name="theme"
+                    name="themeNo"
                     options={theme}
                     component={CustomSelect}
                     placeholder="Select a Theme..."
-                  ></Field>
+                  />
                   <ErrorMessage
                     name="themeNo"
                     component="div"
@@ -506,10 +545,11 @@ const TechSearch = () => {
                   Enter
                 </button>
               </div>
+
               <div className="form-group mb-4">
                 <label
                   className="font-bold flex justify-between"
-                  htmlFor="iprType"
+                  htmlFor="sectionSelect"
                 >
                   SECTION
                   <span className="Hint block text-xs text-red-500 inline text-end"></span>
@@ -518,6 +558,7 @@ const TechSearch = () => {
                   name="sectionSelect"
                   as="select"
                   className="w-full p-2 text-lg outline-0.1 rounded-md"
+                  onChange={handleSectionChange}
                 >
                   <option value="">-- Select Section--</option>
                   <option value="SectionOne">SectionOne</option>
@@ -533,6 +574,148 @@ const TechSearch = () => {
               </div>
             </Form>
           </Formik>
+
+          {/* Data Table */}
+           {/* Display data based on selected section */}
+           {loading ? (
+            <div className="text-center py-8">Loading...</div>
+          ) : (
+            <>
+              {selectedSection === 'SectionOne' && data.sectionOneList && (
+                <div className="mt-8">
+                  <h2 className="text-xl font-bold mb-4">Section One - Technology Details</h2>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white border">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="py-2 px-4 border">TRN No</th>
+                          <th className="py-2 px-4 border">Technology Name</th>
+                          <th className="py-2 px-4 border">Keywords</th>
+                          <th className="py-2 px-4 border">Industrial Sector</th>
+                          <th className="py-2 px-4 border">Lead Lab</th>
+                          <th className="py-2 px-4 border">Technology Level</th>
+                          <th className="py-2 px-4 border">Brief</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.sectionOneList.map((item, index) => (
+                          <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
+                            <td className="py-2 px-4 border">{item.technologyRefNo || '-'}</td>
+                            <td className="py-2 px-4 border">{item.nameTechnology || '-'}</td>
+                            <td className="py-2 px-4 border">{item.keywordTechnology || '-'}</td>
+                            <td className="py-2 px-4 border">
+                              {item.industrialSector?.join(', ') || '-'}
+                            </td>
+                            <td className="py-2 px-4 border">{item.leadLaboratory || '-'}</td>
+                            <td className="py-2 px-4 border">{item.technologyLevel || '-'}</td>
+                            <td className="py-2 px-4 border">{item.briefTech || '-'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {selectedSection === 'SectionTwo' && data.sectionTwoList && (
+                <div className="mt-8">
+                  <h2 className="text-xl font-bold mb-4">Section Two - IPR Details</h2>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white border">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="py-2 px-4 border">TRN No</th>
+                          <th className="py-2 px-4 border">IPR Type</th>
+                          <th className="py-2 px-4 border">Registration No</th>
+                          <th className="py-2 px-4 border">Status</th>
+                          <th className="py-2 px-4 border">Status Date</th>
+                          <th className="py-2 px-4 border">Countries</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.sectionTwoList.map((item, index) => (
+                          <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
+                            <td className="py-2 px-4 border">{item.technologyRefNo || '-'}</td>
+                            <td className="py-2 px-4 border">{item.iprType || '-'}</td>
+                            <td className="py-2 px-4 border">{item.registrationNo || '-'}</td>
+                            <td className="py-2 px-4 border">{item.status || '-'}</td>
+                            <td className="py-2 px-4 border">{item.statusDate || '-'}</td>
+                            <td className="py-2 px-4 border">
+                              {item.countries?.join(', ') || '-'}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {selectedSection === 'SectionThree' && data.sectionThreeList && (
+                <div className="mt-8">
+                  <h2 className="text-xl font-bold mb-4">Section Three - Licensing Details</h2>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white border">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="py-2 px-4 border">TRN No</th>
+                          <th className="py-2 px-4 border">License Name</th>
+                          <th className="py-2 px-4 border">Type</th>
+                          <th className="py-2 px-4 border">Region</th>
+                          <th className="py-2 px-4 border">Valid Until</th>
+                          <th className="py-2 px-4 border">Grand Total</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.sectionThreeList.map((item, index) => (
+                          <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
+                            <td className="py-2 px-4 border">{item.technologyRefNo || '-'}</td>
+                            <td className="py-2 px-4 border">{item.licenseName || '-'}</td>
+                            <td className="py-2 px-4 border">{item.typeOfLicense || '-'}</td>
+                            <td className="py-2 px-4 border">{item.staRegionalGeography || '-'}</td>
+                            <td className="py-2 px-4 border">{item.licenseValidUntil || '-'}</td>
+                            <td className="py-2 px-4 border">{item.grandTotal || '-'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+
+              {selectedSection === 'SectionFour' && data.sectionFourList && (
+                <div className="mt-8">
+                  <h2 className="text-xl font-bold mb-4">Section Four - Deployment Details</h2>
+                  <div className="overflow-x-auto">
+                    <table className="min-w-full bg-white border">
+                      <thead>
+                        <tr className="bg-gray-100">
+                          <th className="py-2 px-4 border">TRN No</th>
+                          <th className="py-2 px-4 border">Client Name</th>
+                          <th className="py-2 px-4 border">Address</th>
+                          <th className="py-2 px-4 border">City</th>
+                          <th className="py-2 px-4 border">Country</th>
+                          <th className="py-2 px-4 border">Contact Person</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {data.sectionFourList.map((item, index) => (
+                          <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
+                            <td className="py-2 px-4 border">{item.technologyRefNo || '-'}</td>
+                            <td className="py-2 px-4 border">{item.clientName || '-'}</td>
+                            <td className="py-2 px-4 border">{item.clientAddress || '-'}</td>
+                            <td className="py-2 px-4 border">{item.city || '-'}</td>
+                            <td className="py-2 px-4 border">{item.country || '-'}</td>
+                            <td className="py-2 px-4 border">{item.nodalContactPerson || '-'}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </div>
       </div>
       <FooterBar />
