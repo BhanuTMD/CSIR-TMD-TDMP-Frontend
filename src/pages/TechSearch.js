@@ -1,9 +1,13 @@
-import FooterBar from "./common/footer";
-import NavBar from "./common/navBar";
+import FooterBar from "../Components/common/footer";
+import NavBar from "../Components/common/navBar";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import CustomSelect from "./utils/CustomSelect";
+import CustomSelect from "../Components/utils/CustomSelect";
 import * as Yup from "yup";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import SectionOne from "../Components/table/SectionOneData";
+import SectionTwo from "../Components/table/SectionTwoData";
+import SectionThree from "../Components/table/SectionThreeData";
+import SectionFour from "../Components/table/SectionFourData";
 
 const industrialSector = [
   {
@@ -416,6 +420,7 @@ const TechSearch = () => {
   const [loading, setLoading] = useState(false);
   const [selectedSection, setSelectedSection] = useState('');
 
+
   const handleSubmit = (values) => {
     console.log("Submitted Data:", values);
     fetchData(values);
@@ -576,144 +581,15 @@ const TechSearch = () => {
           </Formik>
 
           {/* Data Table */}
-           {/* Display data based on selected section */}
-           {loading ? (
+          {/* Display data based on selected section */}
+          {loading ? (
             <div className="text-center py-8">Loading...</div>
           ) : (
             <>
-              {selectedSection === 'SectionOne' && data.sectionOneList && (
-                <div className="mt-8">
-                  <h2 className="text-xl font-bold mb-4">Section One - Technology Details</h2>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border">
-                      <thead>
-                        <tr className="bg-gray-100">
-                          <th className="py-2 px-4 border">TRN No</th>
-                          <th className="py-2 px-4 border">Technology Name</th>
-                          <th className="py-2 px-4 border">Keywords</th>
-                          <th className="py-2 px-4 border">Industrial Sector</th>
-                          <th className="py-2 px-4 border">Lead Lab</th>
-                          <th className="py-2 px-4 border">Technology Level</th>
-                          <th className="py-2 px-4 border">Brief</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data.sectionOneList.map((item, index) => (
-                          <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
-                            <td className="py-2 px-4 border">{item.technologyRefNo || '-'}</td>
-                            <td className="py-2 px-4 border">{item.nameTechnology || '-'}</td>
-                            <td className="py-2 px-4 border">{item.keywordTechnology || '-'}</td>
-                            <td className="py-2 px-4 border">
-                              {item.industrialSector?.join(', ') || '-'}
-                            </td>
-                            <td className="py-2 px-4 border">{item.leadLaboratory || '-'}</td>
-                            <td className="py-2 px-4 border">{item.technologyLevel || '-'}</td>
-                            <td className="py-2 px-4 border">{item.briefTech || '-'}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-
-              {selectedSection === 'SectionTwo' && data.sectionTwoList && (
-                <div className="mt-8">
-                  <h2 className="text-xl font-bold mb-4">Section Two - IPR Details</h2>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border">
-                      <thead>
-                        <tr className="bg-gray-100">
-                          <th className="py-2 px-4 border">TRN No</th>
-                          <th className="py-2 px-4 border">IPR Type</th>
-                          <th className="py-2 px-4 border">Registration No</th>
-                          <th className="py-2 px-4 border">Status</th>
-                          <th className="py-2 px-4 border">Status Date</th>
-                          <th className="py-2 px-4 border">Countries</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data.sectionTwoList.map((item, index) => (
-                          <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
-                            <td className="py-2 px-4 border">{item.technologyRefNo || '-'}</td>
-                            <td className="py-2 px-4 border">{item.iprType || '-'}</td>
-                            <td className="py-2 px-4 border">{item.registrationNo || '-'}</td>
-                            <td className="py-2 px-4 border">{item.status || '-'}</td>
-                            <td className="py-2 px-4 border">{item.statusDate || '-'}</td>
-                            <td className="py-2 px-4 border">
-                              {item.countries?.join(', ') || '-'}
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-
-              {selectedSection === 'SectionThree' && data.sectionThreeList && (
-                <div className="mt-8">
-                  <h2 className="text-xl font-bold mb-4">Section Three - Licensing Details</h2>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border">
-                      <thead>
-                        <tr className="bg-gray-100">
-                          <th className="py-2 px-4 border">TRN No</th>
-                          <th className="py-2 px-4 border">License Name</th>
-                          <th className="py-2 px-4 border">Type</th>
-                          <th className="py-2 px-4 border">Region</th>
-                          <th className="py-2 px-4 border">Valid Until</th>
-                          <th className="py-2 px-4 border">Grand Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data.sectionThreeList.map((item, index) => (
-                          <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
-                            <td className="py-2 px-4 border">{item.technologyRefNo || '-'}</td>
-                            <td className="py-2 px-4 border">{item.licenseName || '-'}</td>
-                            <td className="py-2 px-4 border">{item.typeOfLicense || '-'}</td>
-                            <td className="py-2 px-4 border">{item.staRegionalGeography || '-'}</td>
-                            <td className="py-2 px-4 border">{item.licenseValidUntil || '-'}</td>
-                            <td className="py-2 px-4 border">{item.grandTotal || '-'}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
-
-              {selectedSection === 'SectionFour' && data.sectionFourList && (
-                <div className="mt-8">
-                  <h2 className="text-xl font-bold mb-4">Section Four - Deployment Details</h2>
-                  <div className="overflow-x-auto">
-                    <table className="min-w-full bg-white border">
-                      <thead>
-                        <tr className="bg-gray-100">
-                          <th className="py-2 px-4 border">TRN No</th>
-                          <th className="py-2 px-4 border">Client Name</th>
-                          <th className="py-2 px-4 border">Address</th>
-                          <th className="py-2 px-4 border">City</th>
-                          <th className="py-2 px-4 border">Country</th>
-                          <th className="py-2 px-4 border">Contact Person</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {data.sectionFourList.map((item, index) => (
-                          <tr key={index} className={index % 2 === 0 ? 'bg-gray-50' : ''}>
-                            <td className="py-2 px-4 border">{item.technologyRefNo || '-'}</td>
-                            <td className="py-2 px-4 border">{item.clientName || '-'}</td>
-                            <td className="py-2 px-4 border">{item.clientAddress || '-'}</td>
-                            <td className="py-2 px-4 border">{item.city || '-'}</td>
-                            <td className="py-2 px-4 border">{item.country || '-'}</td>
-                            <td className="py-2 px-4 border">{item.nodalContactPerson || '-'}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
+              {selectedSection === "SectionOne" && <SectionOne />}
+              {selectedSection === "SectionTwo" && <SectionTwo />}
+              {selectedSection === "SectionThree" && <SectionThree />}
+              {selectedSection === "SectionFour" && <SectionFour />}
             </>
           )}
         </div>

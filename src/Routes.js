@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./Components/auth/Login";
 import Signup from "./Components/auth/Signup";
 import SectionOne from "./Components/SectionOne";
-import TechSearch from "./Components/TechSearch";
+import TechSearch from "./pages/TechSearch";
 import SectionTwo from "./Components/SectionTwo";
 import SectionThree from "./Components/SectionThree";
 import SectionFour from "./Components/SectionFour";
@@ -15,7 +15,7 @@ import OTPLoginVerify from "./Components/auth/OtpLoginVerify";
 // import Search from "./Components/Search";
 // import JsonDisplay from "./Components/JsonDisplay";
 // import Search from "./Components/Search";
-import SearchTable from "./Components/SearchTable";
+
 
 const AppRoutes = () => {
   return (
@@ -24,19 +24,17 @@ const AppRoutes = () => {
         <Route index element={<Login />} />
         <Route path="welcomePage" element={<WelcomePage />} />
         <Route path="signup" element={<Signup />} />
-        <Route path="sectionOne" element={<SectionOne />} />
+        <Route path="SectionOne" element={<SectionOne />} />
         <Route path="techSearch" element={<TechSearch />} />
-        <Route path="sectionTwo" element={<SectionTwo />} />
-        <Route path="sectionThree" element={<SectionThree />} />
-        <Route path="sectionFour" element={<SectionFour />} />
+        <Route path="SectionTwo" element={<SectionTwo />} />
+        <Route path="SectionThree" element={<SectionThree />} />
+        <Route path="SectionFour" element={<SectionFour />} />
         <Route path="changePassword" element={<ChangePassword />} />
         <Route path="otpVerify" element={<OTPVerify />} />
         <Route path="otpLoginVerify" element={<OTPLoginVerify />} />
-        <Route path="login" element={<Login />} />
-        {/* <Route path="Search" element={<Search />} />
-        <Route path="JsonDisplay" element={<JsonDisplay />} /> */}
+        <Route path="Login" element={<Login />} />
         <Route path="TechSearch" element={<TechSearch />} />
-        <Route path="SearchTable" element={<SearchTable />} />
+        
       </Route>
     </Routes>
   );
