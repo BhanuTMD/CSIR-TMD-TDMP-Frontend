@@ -404,6 +404,8 @@ const TechSearch = () => {
         sectionSelect: ""
     };
 
+
+
     const validationSchema = Yup.object({
         // Uncomment and add validation as needed
         // industrialSector: Yup.string().required("Required"),
@@ -454,6 +456,56 @@ const TechSearch = () => {
             setLoading(false);
         }
     };
+
+    const handlePrintRow = (item) => {
+        const newWindow = window.open('', '', 'width=800,height=600');
+        const rowHTML = `
+          <html>
+            <head>
+              <title>Print Preview - ${item.nameTechnology || 'Technology'}</title>
+              <style>
+                body { font-family: Arial, sans-serif; padding: 20px; }
+                table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+                th { background-color: #f9f9f9; }
+              </style>
+            </head>
+            <body>
+              <h2>Technology Detail - ${item.nameTechnology || '-'}</h2>
+              <table>
+                <tbody>
+                  <tr><th>TRN No</th><td>${item.technologyRefNo || '-'}</td></tr>
+                  <tr><th>Technology Name</th><td>${item.nameTechnology || '-'}</td></tr>
+                  <tr><th>Keywords</th><td>${item.keywordTechnology || '-'}</td></tr>
+                  <tr><th>Industrial Sector</th><td>${item.industrialSector?.join(', ') || '-'}</td></tr>
+                  <tr><th>Multi Lab Institute</th><td>${item.multiLabInstitute || '-'}</td></tr>
+                  <tr><th>Lead Lab</th><td>${item.leadLaboratory || '-'}</td></tr>
+                  <tr><th>Associate Institutes</th><td>${item.associateInstitute?.join(', ') || '-'}</td></tr>
+                  <tr><th>Theme</th><td>${item.theme?.join(', ') || '-'}</td></tr>
+                  <tr><th>Technology Level</th><td>${item.technologyLevel || '-'}</td></tr>
+                  <tr><th>Scale of Development</th><td>${item.scaleDevelopment || '-'}</td></tr>
+                  <tr><th>Year of Development</th><td>${item.yearDevelopment || '-'}</td></tr>
+                  <tr><th>Brief</th><td>${item.briefTech || '-'}</td></tr>
+                  <tr><th>Competitive Position</th><td>${item.competitivePosition || '-'}</td></tr>
+                  <tr><th>Stakeholders</th><td>${item.stakeHolders?.join(', ') || '-'}</td></tr>
+                  <tr><th>Techno Economics</th><td>${item.technoEconomics || '-'}</td></tr>
+                  <tr><th>Market Potential</th><td>${item.marketPotential || '-'}</td></tr>
+                  <tr><th>Environmental Statutory</th><td>${item.environmentalStatutory || '-'}</td></tr>
+                  <tr><th>Laboratory Details</th><td>${item.laboratoryDetail || '-'}</td></tr>
+                </tbody>
+              </table>
+              <script>
+                window.onload = function() {
+                  window.print();
+                }
+              </script>
+            </body>
+          </html>
+        `;
+        newWindow.document.write(rowHTML);
+        newWindow.document.close();
+      };
+      
 
 
 
@@ -647,6 +699,17 @@ const TechSearch = () => {
                                                         <td className="py-2 px-4 border">{item.marketPotential || '-'}</td>
                                                         <td className="py-2 px-4 border">{item.environmentalStatutory || '-'}</td>
                                                         <td className="py-2 px-4 border">{item.laboratoryDetail || '-'}</td>
+                                                        <td className="py-2 px-4 border">
+                                                            <td className="py-2 px-4 border">
+                                                                <button
+                                                                    onClick={() => handlePrintRow(item)}
+                                                                    className="text-blue-600 hover:underline"
+                                                                >
+                                                                    Print
+                                                                </button>
+                                                            </td>
+
+                                                        </td>
                                                     </tr>
                                                 ))}
                                             </tbody>
