@@ -248,10 +248,17 @@ const SectionFour = () => {
                   Previous
                 </button>
                 <button
+                  type="button"
+                  className="px-2 py-2 bg-blue-500 text-white rounded-md ml-4"
+                  onClick={() => navigate("")}
+                >
+                  Preview
+                </button>
+                <button
                   type="submit"
                   className="px-4 py-2 bg-blue-500 text-white rounded-md ml-4"
                 >
-                  Save
+                  Submit
                 </button>
               </div>
             </Form>

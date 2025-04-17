@@ -151,6 +151,8 @@ const SectionOne = ({ data }) => {
                             <th className="py-2 px-4 border">Market Potential</th>
                             <th className="py-2 px-4 border">Environmental Statutory</th>
                             <th className="py-2 px-4 border">Laboratory Details</th>
+                            <th className="py-2 px-4 border">Action</th>
+
                         </tr>
                     </thead>
                     <tbody>

@@ -546,7 +546,7 @@ const SectionThree = () => {
                   <button
                     type="button"
                     className="px-2 py-2 bg-blue-500 text-white rounded-md "
-                    onClick={() => navigate("/sectionTow")}
+                    onClick={() => navigate("/sectionTwo")}
                   >
                     Previous
                   </button>
