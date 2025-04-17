@@ -1343,7 +1343,7 @@ const SectionOne = () => {
                   <button
                     type="button"
                     className="px-4 py-2 bg-blue-500 text-white rounded-md ml-4"
-                    onClick={() => navigate("/section2")}
+                    onClick={() => navigate("/sectionTwo")}
                   >
                     Next
                   </button>

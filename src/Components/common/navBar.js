@@ -1,27 +1,57 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function NavBar() {
+  const location = useLocation();
+  const isWelcomePage = location.pathname === "/welcomePage";
+
   return (
-    <div className="w-full bg-indigo-300 text-blue-600 font-bold shadow-lg ">
-      <div className="container mx-auto flex justify-between items-center py-2 px-3 ">
-        <div className="flex w-full space-x-3">
+    <div className="w-full bg-indigo-300 text-blue-600 font-bold shadow-lg">
+      <div className="container mx-auto flex justify-between items-center py-2 px-3">
+        <div className="flex w-full space-x-6 items-center">
+          {/* Welcome */}
           <Link
-            to="/WelcomePage"
-            className="nav-item hover:text-blue-800 cursor-pointer  flex-1 text-left text-xl"
+            to="/welcomePage"
+            className="hover:text-blue-800 cursor-pointer text-xl"
           >
             Welcome
           </Link>
 
-          <div
-            className="nav-item hover:text-blue-800 cursor-pointer text-xl"
-            onClick={() => {
-              localStorage.removeItem("token"); // Or sessionStorage.removeItem('token');
-              window.location.href = "/"; // Redirect to login page after logout
-            }}
+          {/* View Technology */}
+          <Link
+            to="/techSearch"
+            className="hover:text-blue-800 cursor-pointer text-xl"
           >
-            Login/Register
+            View 
+          </Link>
+
+          {/* Technology dropdown */}
+          <div className="relative group">
+            <div className="cursor-pointer text-xl hover:text-blue-800">
+              Technology
+            </div>
+            <div className="absolute hidden group-hover:block bg-indigo-200 mt-1 rounded shadow-md z-10">
+              <Link
+                to="/SectionOne"
+                className="block px-4 py-2 hover:bg-indigo-300"
+              >
+                Add New Technology
+              </Link>
+            </div>
           </div>
+
+          {/* Conditional Login/Register */}
+          {isWelcomePage && (
+            <div
+              className="ml-auto nav-item hover:text-blue-800 cursor-pointer text-xl"
+              onClick={() => {
+                localStorage.removeItem("token");
+                window.location.href = "/";
+              }}
+            >
+              Login/Register
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -29,6 +59,8 @@ function NavBar() {
 }
 
 export default NavBar;
+
+
 
 // /***new welcome page code */
 
