@@ -1,9 +1,32 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 function NavBar() {
   const location = useLocation();
   const isWelcomePage = location.pathname === "/welcomePage";
+
+  // State to manage dropdown visibility
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  // Ref to detect clicks outside the dropdown
+  const dropdownRef = useRef(null);
+
+  // Toggle dropdown visibility
+  const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
+
+  // Close dropdown if clicked outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="w-full bg-indigo-300 text-blue-600 font-bold shadow-lg">
@@ -22,35 +45,45 @@ function NavBar() {
             to="/techSearch"
             className="hover:text-blue-800 cursor-pointer text-xl"
           >
-            View 
+            View
           </Link>
 
           {/* Technology dropdown */}
-          <div className="relative group">
-            <div className="cursor-pointer text-xl hover:text-blue-800">
+          <div className="relative" ref={dropdownRef}>
+            <div
+              className="cursor-pointer text-xl hover:text-blue-800"
+              onClick={toggleDropdown}
+            >
               Technology
             </div>
-            <div className="absolute hidden group-hover:block bg-indigo-200 mt-1 rounded shadow-md z-10">
-              <Link
-                to="/SectionOne"
-                className="block px-4 py-2 hover:bg-indigo-300"
-              >
-                Add New Technology
-              </Link>
-            </div>
+            {isDropdownOpen && (
+              <div className="absolute bg-indigo-200 mt-1 rounded shadow-md z-10">
+                <Link
+                  to="/SectionOne"
+                  className="block px-4 py-2 hover:bg-indigo-100"
+                  onClick={() => setIsDropdownOpen(false)} // Close dropdown after clicking
+                >
+                  Add New Technology
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Conditional Login/Register */}
           {isWelcomePage && (
-            <div
-              className="ml-auto nav-item hover:text-blue-800 cursor-pointer text-xl"
-              onClick={() => {
-                localStorage.removeItem("token");
-                window.location.href = "/";
-              }}
-            >
-              Login/Register
-            </div>
+          <div className="flex w-full space-x-6 items-center">
+          {/* Other navbar items */}
+          <div
+            className="ml-auto nav-item hover:text-blue-800 cursor-pointer text-xl "
+            onClick={() => {
+              localStorage.removeItem("token");
+              window.location.href = "/";
+            }}
+          >
+            Login/Register
+          </div>
+        </div>
+        
           )}
         </div>
       </div>
@@ -59,6 +92,7 @@ function NavBar() {
 }
 
 export default NavBar;
+
 
 
 
@@ -179,3 +213,4 @@ export default NavBar;
 // }
 
 // export default NavBar;
+
