@@ -863,7 +863,7 @@ const SectionOne = () => {
 
   const handleSubmit = (values) => {
     console.log("handle submit is calling******************", values);
-    const url = "http://localhost:8080/apf/tdmp/saveSectionOne";
+    const url = "http://172.16.2.102:8080/apf/tdmp/saveSectionOne";
     const config = {
       headers: { "Content-Type": "application/json" }, // Set to multipart/form-data for FormData if needed
     };

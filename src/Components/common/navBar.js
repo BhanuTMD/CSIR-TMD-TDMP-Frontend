@@ -37,7 +37,7 @@ function NavBar() {
             to="/welcomePage"
             className="hover:text-blue-800 cursor-pointer text-xl"
           >
-            Welcome
+            Home
           </Link>
 
           {/* View Technology */}

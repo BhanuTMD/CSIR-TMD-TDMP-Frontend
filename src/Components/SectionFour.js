@@ -51,7 +51,7 @@ const SectionFour = () => {
 
   const handleSubmit = (values) => {
     console.log("Form submitted with values:", values);
-    const url = "http://localhost:8080/apf/tdmp/saveSectionFour"; // Replace with your API endpoint
+    const url = "http://172.16.2.102:8080/apf/tdmp/saveSectionFour"; // Replace with your API endpoint
     const headers = {
       "Content-Type": "application/json",
     };

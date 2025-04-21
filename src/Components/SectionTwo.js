@@ -825,7 +825,7 @@ const SectionTwo = () => {
   ];
 
   const handleSubmit = (values) => {
-    const url = "http://localhost:8080/apf/tdmp/saveSectionTwo";
+    const url = "http://172.16.2.102:8080/apf/tdmp/saveSectionTwo";
     const headers = {
       "Content-Type": "application/json",
     };
