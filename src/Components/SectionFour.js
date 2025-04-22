@@ -10,6 +10,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+
+
 const SectionFour = () => {
   const [countries, setCountries] = useState([]);
 
@@ -250,7 +252,7 @@ const SectionFour = () => {
                 <button
                   type="button"
                   className="px-2 py-2 bg-blue-500 text-white rounded-md ml-4"
-                  onClick={() => navigate("")}
+                  onClick={() => navigate("/PreviewPopUp")}
                 >
                   Preview
                 </button>
