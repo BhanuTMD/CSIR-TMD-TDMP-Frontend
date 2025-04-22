@@ -29,7 +29,7 @@ const WelcomePage = () => {
       {/* Header Text */}
       <div className="text-left">
         <h1 className="text-2xl sm:text-4xl font-bold text-blue-700 m-4">
-          Technology Database Management Portal (TDMP-TMD)
+          Technology Database Management Portal (TDMP)
         </h1>
       </div>
       <NavBar />

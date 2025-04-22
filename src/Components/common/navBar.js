@@ -54,7 +54,7 @@ function NavBar() {
               className="cursor-pointer text-xl hover:text-blue-800"
               onClick={toggleDropdown}
             >
-              Technology
+               Technology
             </div>
             {isDropdownOpen && (
               <div className="absolute bg-indigo-200 mt-1 rounded shadow-md z-10">

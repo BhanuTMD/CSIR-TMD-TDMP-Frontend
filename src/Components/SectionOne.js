@@ -1125,7 +1125,7 @@ const SectionOne = () => {
                   <label className="font-bold" htmlFor="scaleDevelopment">
                     Scale of Development: &nbsp;
                     <span className="Hint block text-sm text-red-500 inline">
-                      Max. 500 Characters
+                      Max. 250 Characters
                     </span>
                   </label>
                   <Field
@@ -1133,7 +1133,7 @@ const SectionOne = () => {
                     name="scaleDevelopment"
                     as="textarea"
                     rows="3"
-                    maxLength="1500"
+                    maxLength="250"
                     className="w-full p-2 text-lg outline-0.1 rounded-md"
                   />
                   <ErrorMessage

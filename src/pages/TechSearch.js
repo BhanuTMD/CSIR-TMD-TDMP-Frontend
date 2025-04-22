@@ -63,50 +63,6 @@ const TechSearch = () => {
         }
     };
 
-    // const handlePrintRow = (section) => {
-    //     const newWindow = window.open('', '', 'width=800,height=600');
-    //     const sectionData = data[`${section}List`] || [];
-    //     const sectionTitle = section.replace('section', 'Section ');
-
-    //     const rowHTML = `
-    //       <html>
-    //         <head>
-    //           <title>Print Preview - ${sectionTitle}</title>
-    //           <style>
-    //             body { font-family: Arial, sans-serif; padding: 20px; }
-    //             table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-    //             th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
-    //             th { background-color: #f9f9f9; }
-    //           </style>
-    //         </head>
-    //         <body>
-    //           <h2>${sectionTitle} - Technology Details</h2>
-    //           <table>
-    //             <thead>
-    //               <tr>
-    //                 ${Object.keys(sectionData[0] || {}).map(key => `<th>${key}</th>`).join('')}
-    //               </tr>
-    //             </thead>
-    //             <tbody>
-    //               ${sectionData.map(item => `
-    //                 <tr>
-    //                   ${Object.values(item).map(value => `<td>${value || '-'}</td>`).join('')}
-    //                 </tr>
-    //               `).join('')}
-    //             </tbody>
-    //           </table>
-    //           <script>
-    //             window.onload = function() {
-    //               window.print();
-    //             }
-    //           </script>
-    //         </body>
-    //       </html>
-    //     `;
-    //     newWindow.document.write(rowHTML);
-    //     newWindow.document.close();
-    // };
-
     return (
         <>
             <NavBar />

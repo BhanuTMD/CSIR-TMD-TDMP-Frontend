@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, ErrorMessage } from 'formik';
-import CustomSelect from '../../Components/utils/CustomSelect'; // Adjust the import path as necessary
-import { industrialSector, lab, theme } from '../../pages/techSearchOptions';
+// import CustomSelect from '../../Components/utils/CustomSelect'; // Adjust the import path as necessary
+// import { industrialSector, lab, theme } from '../../pages/techSearchOptions';
 
 const TechSearchForm = ({ selectedSection, handleSectionChange }) => {
     return (
