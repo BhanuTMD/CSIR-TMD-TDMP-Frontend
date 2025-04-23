@@ -12,7 +12,7 @@ import ChangePassword from "./Components/auth/ChangePassword";
 import WelcomePage from "./Components/WelcomePage";
 import OTPVerify from "./Components/auth/OtpVerify";
 import OTPLoginVerify from "./Components/auth/OtpLoginVerify";
-import PerviewPopUp from "./pages/PreviewPopUp";
+import PreviewPopUp from "./pages/PreviewPopUp";
 // import Search from "./Components/Search";
 // import JsonDisplay from "./Components/JsonDisplay";
 // import Search from "./Components/Search";
@@ -35,7 +35,7 @@ const AppRoutes = () => {
         <Route path="otpLoginVerify" element={<OTPLoginVerify />} />
         <Route path="Login" element={<Login />} />
         <Route path="TechSearch" element={<TechSearch />} />
-        <Route path="PerviewPopUp" element={<PerviewPopUp />} />
+        <Route path="PreviewPopUp" element={<PreviewPopUp />} />
         
       </Route>
     </Routes>
