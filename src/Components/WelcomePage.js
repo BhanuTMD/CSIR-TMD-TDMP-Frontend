@@ -28,7 +28,7 @@ const WelcomePage = () => {
       </div>
       {/* Header Text */}
       <div className="text-left">
-        <h1 className="text-2xl sm:text-4xl font-bold text-blue-700 m-4">
+        <h1 className="text-2xl sm:text-4xl font-bold text-blue-700 m-7">
           Technology Database Management Portal (TDMP)
         </h1>
       </div>
@@ -38,30 +38,29 @@ const WelcomePage = () => {
           Technology Management Directorate (TMD) facilitates CSIR connect with
           Line Ministries, State Governments and other organizations on one hand
           and with <br /> industry on the other for providing high quality
-          technology-based products/ solutions/ services as well as competitive
+          technology-based products/ solutions/ services as well as competitive   
           advantage to citizens of the country.
         </p>
         <p className="text-base sm:text-lg font-medium text-gray-700 mt-3">
           The Directorate is responsible for:
           <ul className="list-disc list-inside">
             <li>
-              Facilitating development of thematic roadmap and strategy for CSIR
-              in key industrial sectors;
+            TDMP is a robust and dynamic data feeding portal designed specifically for Technologies/Know-how developed by CSIR labs.
             </li>
             <li>
-              Interface and help establish organic linkages between CSIR
-              laboratories and stakeholders including industries, Central/State
-              Ministries, Agencies, etc.,
-              <br /> for technology development and their customised deployment
-              as per needs/requirements;
+            It enables the CSIR-Technology Management Directorate (TMD) to easily manage and access up-to-date information across all CSIR labs.
             </li>
+            <li>The portal centralizes technology data, ensuring consistency and transparency in how information is stored and shared.</li>
             <li>
-              Management of CSIR Awards namely, CSIR Diamond Jubilee Technology
-              Awards (CDJTA), CSIR Award for S&T Innovations for Rural
-              Development (CAIRD),
-              <br /> and CSIR Technology Awards (CTA); and
+            It streamlines the process of capturing, updating, and showcasing technological developments in real-time.
             </li>
-            <li>Corporate Social Responsibility (CSR) measures.</li>
+            <li>TDMP fosters collaboration between labs and supports quick, informed decision-making.</li>
+            <li>It also plays a key role in promoting the commercialization and licensing of CSIR technologies, connecting innovations with industry needs.</li>
+            <li>With TDMP, CSIR ensures that every innovation is documented, accessible, and ready for deployment or commercialization.
+
+            </li>
+            {/* <li>The portal not only captures innovation but also streamlines its journey toward industrial application.</li>
+            <li>TDMP empowers CSIR with real-time visibility and control over the entire landscape of developed technologies.</li> */}
           </ul>
         </p>
       </div>
